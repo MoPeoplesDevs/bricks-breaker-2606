@@ -82,6 +82,15 @@ void Game::Render() const
 	{
 		brick[i].Draw();
 	}
+	if (brick.size() == 0)
+	{
+		Console::WordWrap(25, 15, 30, "VICOTRY! Press R to reset.");
+	}
+	if (ball.y_position >= WINDOW_HEIGHT)
+	{
+		Console::WordWrap(25, 15, 30, "DEFEAT! Press R to reset.");
+	}
+
 
 	Console::Lock(false);
 }
@@ -100,6 +109,7 @@ void Game::CheckCollision()
 			if (brick[i].color == ConsoleColor::Black)
 			{
 				brick.erase(brick.begin() + i);
+				break;
 			}
 		}
 	}
@@ -108,7 +118,6 @@ void Game::CheckCollision()
 	if (brick.size() == 0)
 	{
 		ball.moving = false;
-		Console::WordWrap(25, 15, 30, "Victory, Press R to play agian!");
 	}
 
 	if (paddle.Contains(ball.x_position + ball.x_velocity, ball.y_velocity + ball.y_position))
@@ -120,6 +129,6 @@ void Game::CheckCollision()
 
 	if (ball.y_position >= WINDOW_HEIGHT)
 	{
-		ball.moving = false
+		ball.moving = false;
 	}
 }
